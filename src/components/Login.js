@@ -1,7 +1,21 @@
 import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import {
+  Alert,
+  AlertIcon,
+  Box,
+  Button,
+  Center,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Heading,
+  Input,
+  Progress,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 
 export default function Login() {
   const emailRef = useRef();
@@ -28,31 +42,75 @@ export default function Login() {
 
   return (
     <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Log In</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+      <Box
+        maxW="lg"
+        borderWidth="1px"
+        borderRadius="lg"
+        padding={30}
+        overflow="hidden"
+      >
+        <Stack spacing={10}>
+          <Heading as="h3" size="lg">
+            Log In
+          </Heading>
+          {error && (
+            <Alert status="error">
+              <AlertIcon />
+              {error}
+            </Alert>
+          )}
+
+          <Stack spacing={5}>
+            <FormControl id="email">
+              <FormLabel>Email</FormLabel>
+              <Input
+                type="email"
+                placeholder={"exp:- johndoe123@gmail.com"}
+                ref={emailRef}
+              />
+            </FormControl>
+
+            <FormControl id="password">
+              <FormLabel>Password</FormLabel>
+              <Input type="password" ref={passwordRef} />
+            </FormControl>
+            {/* <div className="w-100 text-center mt-3">
+              <Link to="/forgot-password">Forgot Password?</Link>
+            </div> */}
+
+            {/* <Form onSubmit={handleSubmit}>
+          <Form.Group id="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control type="email" ref={emailRef} required />
+          </Form.Group>
+          <Form.Group id="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" ref={passwordRef} required />
+          </Form.Group>
+          <Button disabled={loading} className="w-100" type="submit">
+            Log In
+          </Button>
+        </Form>
+        <div className="w-100 text-center mt-3">
+          <Link to="/forgot-password">Forgot Password?</Link>
+        </div> */}
+            <Button
+              onClick={handleSubmit}
+              disabled={loading}
+              size="md"
+              type="submit"
+            >
               Log In
             </Button>
-          </Form>
-          <div className="w-100 text-center mt-3">
-            <Link to="/forgot-password">Forgot Password?</Link>
-          </div>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign Up</Link>
-      </div>
+
+            <Center>
+              <Text fontSize="large">Need an account?</Text>
+              <Link to="/signup">Sign Up</Link>
+            </Center>
+          </Stack>
+        </Stack>
+        {/* <Progress size="xs" isIndeterminate /> */}
+      </Box>
     </>
   );
 }
